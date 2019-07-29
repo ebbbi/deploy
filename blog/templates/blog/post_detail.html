@@ -1,0 +1,136 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>MOTD_DETAIL</title>
+	<style>
+	    @font-face {
+    font-family: 'GyeonggiBatang';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GyeonggiBatang.woff') format('woff');
+    font-weight: normal;
+    font-style: normal; 
+    }
+    body{
+        background-color:#F3DCD3;
+        font-family: 'GyeonggiBatang';
+        margin-top:3%;
+    }
+    h1{
+        text-align:center;
+        font-size:45px;
+    }
+    a{
+        display:inline-block;
+        text-decoration:none;
+        color:black;
+        width:80px;
+        height:40px;
+        background-color:black;
+        color:white;
+        padding:1%;
+        text-align:center;
+        margin-top:2%;
+    }
+    .btn{
+        display:flex;
+        justify-content:space-around;
+    }
+    .post{
+        margin:0 auto;
+        text-align:center;
+        background-color:#DBB1A1;
+        padding:3%;
+    }
+    .img{
+    }
+     *{
+        box-sizing: border-box;
+    }
+	.content{
+	    width:700px;
+	    height:80px;
+	}
+	.cmcontent{
+	    font-size:17px;
+	}
+	.cmbtn{
+        width:80px;
+        height:40px;
+        background-color:#996371;
+        color:white;
+        text-align:center;
+        border:0;
+        font-family: 'GyeonggiBatang';
+        font-size:16px;
+	}
+	.cmudbtn{
+	    display:flex;
+	    justify-content:flex-end;
+	}
+	.cmudbtn a{
+        width:60px;
+        height:30px;
+        background-color:#996371;
+        color:white;
+        text-align:center;
+        border:0;
+        font-family: 'GyeonggiBatang';
+        font-size:12px;
+        line-height:0.5;
+        border:0;
+        margin:0 5px;
+	}
+	</style>
+</head>
+<body>
+    <h1>MY POST</h1>
+    <div class="post">
+        {%if post.pub_date%}
+            {{post.pub_date}}
+        {%endif%}
+        {{post.category}}
+        <h1>{{post.title}}</h1>
+        <p>
+           작성자 {{post.author}}<br><br><br>
+           EYES {{post.eyes}}<br><br>
+           LIP  {{post.lip}}<br><br>
+           FACE {{post.face}}
+            {%if post.image%}
+                <div class="img">
+                    <img src="{{post.image.url}}"  height=200>
+               </div>
+            {%endif%}
+           {{post.choice}}
+        </p>
+         <div class="btn">
+            <a href="{% url 'post_edit' index=post.pk %}">수정</a>
+            <a href="{% url 'home' %}">home</a>
+            <a href="{% url 'post_delete' pk=post.pk %}">삭제</a>
+        </div>
+    </div>
+    <div><br>
+        <h2>댓글</h2>
+        <div class="cm">
+            <form method="POST">
+                {%csrf_token%}
+                {{form.as_p}}
+                <button type="submit" class="cmbtn">작성</button>
+            </form>
+        </div>
+        
+        {%for comment in comments%}
+            <div class="cmcontent">
+                <div style="color:#B395C8;"><b>{{comment.author}}</b> | {{comment.time}}
+            </div>
+            <br>
+            {{comment.content}}
+                <div class="cmudbtn">
+                    <a href="{% url 'comment_edit' index=post.pk cindex=comment.pk %}">수정</a>
+                    <a href="{% url 'comment_delete' index=post.pk cindex=comment.pk %}">삭제</a>
+                </div>
+            </div>
+            <hr><br>
+        {%endfor%}
+        
+    </div>
+</body>
+</html>

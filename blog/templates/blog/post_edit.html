@@ -1,0 +1,48 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>MOTD_EDIT</title>
+</head>
+<body>
+    <h1>TODAY'S MAKEUP</h1>
+        <form method='POST' class="post-form" enctype="multipart/form-data">{% csrf_token%}
+            {{ form.as_p }}
+            <button type="submit">Save</button>
+        </form>
+
+</body>
+<style>
+ @font-face {
+    font-family: 'GyeonggiBatang';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GyeonggiBatang.woff') format('woff');
+    font-weight: normal;
+    font-style: normal; 
+    }
+    body{
+        background-color:#F3DCD3;
+        font-family: 'GyeonggiBatang';
+    }
+    form{
+        margin:0 auto;
+        text-align:center;
+        padding:2%;
+    }
+    h1{
+        text-align:center;
+        padding:3%;
+        border-bottom:0.5px solid black;
+    }
+    .lip, .eyes, .face{
+        width:300px;
+        height:60px;
+        margin:0 auto;
+    }
+    .writer{
+        width:150px;
+        height:20px;
+    }
+    
+    *{
+        box-sizing: border-box;
+    }
+</style>
